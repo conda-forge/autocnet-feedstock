@@ -1,3 +1,4 @@
+{% set python_min = '3.10' %}
 {% set name = "autocnet" %}
 {% set version = "1.2.2" %}
 
@@ -12,15 +13,15 @@ source:
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation 
   noarch: python
-  number: 0
+  number: 1
 
 requirements:
     host:
-      - python >=3.10
+      - python {{ python_min }}
       - pip
       - setuptools
     run:
-      - python >=3.10
+      - python >={{ python_min }}
       - csmapi
       - cyvlfeat
       - matplotlib-base
@@ -57,6 +58,8 @@ requirements:
       - protobuf <=3.20
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - autocnet
     - autocnet.graph.network
